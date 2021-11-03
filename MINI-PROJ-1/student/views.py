@@ -7,9 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    pass
-    # Your code here
-
+    return render_template("your_code.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
