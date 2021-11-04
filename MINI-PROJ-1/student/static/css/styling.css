@@ -130,5 +130,5 @@ button:hover {
 #big-box {
     display: flex;
     justify-content: space-evenly;
-    flex-direction: row;
+    flex-direction: column;
 }

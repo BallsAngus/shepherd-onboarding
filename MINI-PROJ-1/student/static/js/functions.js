@@ -22,6 +22,7 @@ document.getElementById("projects").addEventListener("click", function () {
         for (let i = 0; i < stuff.length; i++) {
             console.log(stuff[i]);
             stuff[i].classList.add("container-hidden");
+            stuff[i].classList.add("test");
             stuff[i].classList.remove("container-visible");
             stuff[i].classList.remove("container");
 
@@ -44,6 +45,7 @@ document.getElementById("projects").addEventListener("click", function () {
             stuff[i].classList.add("container-visible");
             stuff[i].classList.add("container");
             stuff[i].classList.remove("container-hidden");
+            stuff[i].classList.remove("test");
 
         }
 
