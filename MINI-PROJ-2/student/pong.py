@@ -95,8 +95,8 @@ def respond_to_repeat():
     """
     Send the most recent response back to ping via ydl so long as we are not banned.
     """
-    ###### YOUR CODE HERE ######
-    pass
+    if LAST_MESSAGE is not BANNED:
+        ydl_send(*PING_HEADERS.RESPOND(text=LAST_MESSAGE, time=time.time()))
 
 # a mapping of header names to the functions that will be called to handle that header.
 HEADER_MAPPINGS = {

@@ -15,7 +15,7 @@ events = queue.Queue()
 # and when messages are received, to put them in events.
 ydl_start_read("PO", events)
 # an infinite while loop. This program only ends when the user presses ctrl+c.
-while True:
+for i in range(5):
     # block=True means that the program will wait here until something appears
     # the queue. Reading from the queue removes the read data from the queue, 
     # leaving the queue empty again.
