@@ -68,6 +68,5 @@ while True:
     header, message = events.get(block=True)
     # print out the received message
     print(f"received message: {message['text']}")
-    ###### YOUR CODE HERE ######
-
+    print(time.time() - message['time'])
 

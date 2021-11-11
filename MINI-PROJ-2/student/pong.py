@@ -64,7 +64,8 @@ def respond_to_notify(text):
     # import varaibles from the global scope.
     global BANNED, LAST_MESSAGE
 
-    ###### YOUR CODE HERE ######
+    if text in RESPONSES.BANNED_RESPONSES:
+        BANNED = True
 
     # if we get something we have a canned response for, send the canned response
     if text in RESPONSES.CANNED_RESPONSES:
@@ -81,7 +82,8 @@ def respond_to_notify(text):
         # ydl_send(wrapped_header[0], wrapped_header[1], wrapped_header[2])
         ydl_send(*PING_HEADERS.RESPOND(text=response, time=time.time()))
 
-    ###### YOUR CODE HERE ######
+    elif BANNED:
+        return
 
     # otherwise, just echo the message
     else:
