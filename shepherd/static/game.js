@@ -454,7 +454,7 @@
         // There's no code to fill in here, but feel free to play around with
         // this. Try uncommenting/modifying the console.log statement!
         const { liberal, fascist } = JSON.parse(data);
-        // console.log("Received a policies_enacted header from Shepherd!");
+        console.log("Received a policies_enacted header from Shepherd!");
         updateCards(liberal, fascist);
         // END QUESTION 2
       });

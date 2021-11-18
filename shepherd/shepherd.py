@@ -208,15 +208,17 @@ def start_game():
 
 
     # TODO: add lines here!
-
-    shuffle_deck(______)
+    deck = [ROLES.HITLER]
+    deck.extend([ROLES.LIBERAL] * (len(PLAYERS) // 2 + 1))
+    deck.extend([ROLES.FASCIST] * ((len(PLAYERS)) - (len(PLAYERS) // 2 + 2)))
+    shuffle_deck(deck)
 
     # Assign roles for each player using the deck.
     player_objs = list(PLAYERS.values())
     for i in range(len(PLAYERS)):
-        player_objs[i].role = ________
+        player_objs[i].role = deck[i]
     # Initialize the board.
-    BOARD = ____________
+    BOARD = Board(len(PLAYERS))
     # END QUESTION 1
 
     send_individual_setups()
@@ -256,8 +258,15 @@ def eligible_chancellor_nominees():
     # the docstring
     # Hint: the function remove_if_exists might be useful
 
-    # TODO: replace the pass with your own code!
-    pass
+    eligibles = PLAYERS
+    remove_if_exists(eligibles, PRESIDENT_ID)
+    remove_if_exists(eligibles, PREVIOUS_CHANCELLOR_ID)    
+    if len(PLAYERS) > 5:
+        remove_if_exists(eligibles, PREVIOUS_PRESIDENT_ID) 
+    return eligibles
+
+
+
 
     # END QUESTION 3
 
@@ -671,8 +680,8 @@ def send_policies_enacted(id = None):
     # Hint: look at utils.py for this header,
     # and look at Board.py to see what instance attributes you need
     ydl_send(*UI_HEADERS.POLICIES_ENACTED(
-        _____________________,
-        _____________________,
+        liberal=BOARD.liberal_enacted,
+        fascist=BOARD.fascist_enacted,
         recipients=None if id is None else [id]
     ))
     # END QUESTION 2
@@ -690,7 +699,10 @@ def send_chancellor_request(id = None):
     # Hint: you should use the eligible_chancellor_nominees function
     
     # TODO: replace pass with your code!
-    pass
+    ydl_send(*UI_HEADERS.CHANCELLOR_REQUEST(
+        eligibles=eligible_chancellor_nominees(),
+        recipients=None if id is None else [id]
+    ))
 
     # END QUESTION 3
 
