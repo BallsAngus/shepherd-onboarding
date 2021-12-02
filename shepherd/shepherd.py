@@ -327,9 +327,10 @@ def end_election_results(secret):
         # game_over is called and the function is terminated
 
         # feel free to add lines if needed!
-        #if _____________________________________:
-        #   ___________________
-        #   return
+        # Use id as key for player dict.
+        if PLAYERS[NOMINATED_CHANCELLOR_ID].role == ROLES.HITLER and BOARD.fascist_enacted >= 3:
+           game_over(ROLES.FASCIST)
+           return
 
         # END QUESTION 5
         if len(CARD_DECK) < 3:
@@ -437,12 +438,12 @@ def chancellor_discarded(secret, card, discarded):
     # BEGIN QUESTION 5
     # If the fascists enact 6 or more policies, they win.
     # If the liberals enact 5 or more policies, they win.
-    #if _______________________:
-    #    _______________________
-    #    return
-    #if _______________________:
-    #    _______________________
-    #    return
+    if BOARD.fascist_enacted >= 6:
+        game_over(ROLES.FASCIST)
+        return
+    if BOARD.liberal_enacted >= 5:
+        game_over(ROLES.LIBERAL)
+        return
     # END QUESTION 5
     if card == CARDS.LIBERAL or len(BOARD.current_power_list()) == 0:
         advance_president()
@@ -528,8 +529,8 @@ def investigate_player(secret, player):
     global CURRENT_INVESTIGATED_PLAYER
     if bad_id(player): return
     if bad_credentials(PRESIDENT_ID, secret): return 
-    _________________________
-    _________________________
+    player.investigated = True
+    CURRENT_INVESTIGATED_PLAYER = player
     send_loyalty()
     # END QUESTION 6
 
@@ -619,8 +620,8 @@ def perform_execution(secret, player: str):
 
     # BEGIN QUESTION 5
     # if Hitler is executed, the liberals win
-    if _______________________:
-        _______________________
+    if PLAYERS[player].role == ROLES.HITLER:
+        game_over(ROLES.LIBERAL)
         return
     # END QUESTION 5
     player_obj = PLAYERS.pop(player)
@@ -657,9 +658,9 @@ def game_over(winner):
     # which one it is. Hint: it's in the below "sender functions" section) 
     # You shouldn't need to add any addition lines.
     global GAME_STATE, WINNER    
-    _____________________
-    _____________________
-    _____________________
+    GAME_STATE = STATE.END
+    WINNER = winner
+    send_game_over()
     # END QUESTION 5
 
 
