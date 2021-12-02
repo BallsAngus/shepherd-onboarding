@@ -26,7 +26,7 @@
         "card2Button",
         // BEGIN QUESTION 4
         // uncomment the following line 
-        //"card3Button",
+        "card3Button",
         // END QUESTION 4
         "endPolicyPeekButton",
         "chancellorVetoButton",
@@ -151,12 +151,12 @@
           // if this player is the president, have them select a chancellor nominee
           hideAllExcept(["miscEntryText"]);
           document.getElementById("miscEntryText").textContent =
-            ______________________;
+            "Select a chancellor nominee!";
           display_player_buttons(eligibles, "nominateChancellor");
         } else {
           hideAllExcept(["miscEntryText"]);
           document.getElementById("miscEntryText").textContent =
-            ______________________;
+            "Waiting for the president to select a chancellor!";
         }
         // END QUESTION 3
       });
@@ -264,9 +264,9 @@
           // availible to discard, as well as text that telling the player
           // to discard a policy. If veto is enabled, also show the veto button.
           // You can look for its id in the allIDs array near the top.
-          hideAllExcept([_______, _______, _______]);
-          ______________________________________________________________
-          show_cards(_______, _______);
+          hideAllExcept(["card1Button", "card2Button", "miscEntryText"]);
+          document.getElementById("miscEntryText").textContent = "Discard a policy.";
+          show_cards(currentCards[0], currentCards[1]);
           // give the chancellor the option to veto if possible
           if (can_veto) {
             show("chancellorVetoButton");

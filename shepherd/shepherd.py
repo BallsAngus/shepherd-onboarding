@@ -258,7 +258,7 @@ def eligible_chancellor_nominees():
     # the docstring
     # Hint: the function remove_if_exists might be useful
 
-    eligibles = PLAYERS
+    eligibles = list(PLAYERS)
     remove_if_exists(eligibles, PRESIDENT_ID)
     remove_if_exists(eligibles, PREVIOUS_CHANCELLOR_ID)    
     if len(PLAYERS) > 5:
@@ -378,9 +378,9 @@ def president_discarded(secret, cards, discarded):
     # - the discarded card needs to be added to DISCARD_DECK
     # - DRAWN_CARDS needs to be set the the remaining two cards
     # - CAN_VETO_THIS_ROUND needs to be set based on a BOARD variable
-    ____________________________
-    ____________________________
-    ____________________________
+    DISCARD_DECK.append(discarded)
+    DRAWN_CARDS = cards
+    CAN_VETO_THIS_ROUND = BOARD.can_veto
     # END QUESTION 4
     send_chancellor_discard()
 
@@ -698,7 +698,6 @@ def send_chancellor_request(id = None):
     # and look at utils.py for what header to use
     # Hint: you should use the eligible_chancellor_nominees function
     
-    # TODO: replace pass with your code!
     ydl_send(*UI_HEADERS.CHANCELLOR_REQUEST(
         eligibles=eligible_chancellor_nominees(),
         recipients=None if id is None else [id]
@@ -743,13 +742,21 @@ def send_chancellor_discard(id = None):
     # Look in utils.py for the correct header, and look at
     # send_president_discard above for an example of how this could work.
     if id is None or id == NOMINATED_CHANCELLOR_ID:
-        # TODO: replace pass with your own code!
-        pass
+        ydl_send(*UI_HEADERS.CHANCELLOR_DISCARD(
+            cards=DRAWN_CARDS,
+            can_veto=CAN_VETO_THIS_ROUND,
+            recipients=[NOMINATED_CHANCELLOR_ID]
+        ))
 
 
     if id != NOMINATED_CHANCELLOR_ID:
-        # TODO: replace pass with your own code!
-        pass
+        # Hide cards if not a nominated chancellor.
+        ydl_send(*UI_HEADERS.CHANCELLOR_DISCARD(
+            cards=[],
+            can_veto=CAN_VETO_THIS_ROUND,
+            recipients=[d for d in PLAYERS if d != NOMINATED_CHANCELLOR_ID]\
+                if id is None else [id]
+        ))
 
 
     # END QUESTION 4
